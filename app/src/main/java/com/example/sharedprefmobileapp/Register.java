@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 public class Register extends AppCompatActivity {
 
-    EditText nama, username, email, alamat;
+    EditText nama, username, email, alamat, password, konfirmasi;
     Button register, login;
     SharedPreferences sharedPreferences;
 
@@ -21,6 +21,8 @@ public class Register extends AppCompatActivity {
     private static final String KEY_USERNAME = "username";
     private static final String KEY_EMAIL = "email";
     private static final String KEY_ALAMAT = "alamat";
+    private static final String KEY_PASSWORD = "password";
+    private static final String KEY_CONFIRM = "confirm";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +35,8 @@ public class Register extends AppCompatActivity {
         alamat = findViewById(R.id.fieldAlamat);
         register = findViewById(R.id.btnRegister);
         login = findViewById(R.id.btnLogin);
+        password = findViewById(R.id.fieldPassword);
+        konfirmasi = findViewById(R.id.fieldKonfirmasi);
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,12 +48,12 @@ public class Register extends AppCompatActivity {
 
         sharedPreferences = getSharedPreferences(SHARED_PREF_NAME, MODE_PRIVATE);
 
-        String name = sharedPreferences.getString(KEY_NAME, null);
-
-        if (name != null) {
-            Intent i = new Intent(Register.this, MainActivity.class);
-            startActivity(i);
-        }
+//        String name = sharedPreferences.getString(KEY_NAME, null);
+//
+//        if (name != null) {
+//            Intent i = new Intent(Register.this, MainActivity.class);
+//            startActivity(i);
+//        }
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,9 +63,11 @@ public class Register extends AppCompatActivity {
                 editor.putString(KEY_USERNAME, username.getText().toString());
                 editor.putString(KEY_EMAIL, email.getText().toString());
                 editor.putString(KEY_ALAMAT, alamat.getText().toString());
+                editor.putString(KEY_PASSWORD, password.getText().toString());
+                editor.putString(KEY_CONFIRM, konfirmasi.getText().toString());
                 editor.apply();
 
-                Intent i = new Intent(Register.this, MainActivity.class);
+                Intent i = new Intent(Register.this, Login.class);
                 startActivity(i);
                 Toast.makeText(Register.this, "Login sukses", Toast.LENGTH_LONG).show();
             }
